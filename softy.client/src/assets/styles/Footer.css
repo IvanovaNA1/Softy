@@ -1,0 +1,57 @@
+/* Основной стиль для Footer */
+footer {
+    background-color: white; /* Темный фон */
+    color: royalblue; /* Белый текст */
+    padding: 0px 0px 0px; /* Отступы */
+    text-align: center; /* Центрируем текст */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    flex-direction: column;
+    
+}
+
+/* Стили для контейнера внутри футера */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.footer-logo h2 {
+    font-size: 25px;
+    
+}
+
+.footer-social ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+    .footer-social ul li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+        .footer-social ul li a {
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+            .footer-social ul li a:hover {
+                color: royalblue;
+            }
+
+/* Маленький текст в футере */
+footer p {
+    font-size: 14px;
+    margin-top: 0px;
+    position:relative;
+}

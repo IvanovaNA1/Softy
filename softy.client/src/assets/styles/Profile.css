@@ -1,0 +1,322 @@
+/* Основной стиль для страницы профиля */
+.profile-container {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9; /* Светлый фон */
+    color: #333; /* Тёмный цвет текста */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 20px auto;
+    margin-top: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Заголовок страницы */
+    .profile-container h2 {
+        color: royalblue; /* Цвет заголовка */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Стиль для текста */
+    .profile-container p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 10px 0;
+    }
+
+    /* Название элементов (labels) */
+    .profile-container .label {
+        font-weight: bold;
+        color: royalblue; /* Цвет для названия элементов */
+    }
+
+/* Стиль для ошибок */
+.error-message {
+    color: red;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Стилизация для кнопки выхода (если есть) */
+.logout-button {
+    background-color: royalblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+    .logout-button:hover {
+        background-color: #4169e1; /* Более тёмный оттенок royalblue при наведении */
+    }
+.unauthorized-message {
+    color: crimson;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.login-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: royalblue;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+/*добавление времени*/
+.master-calendar-section {
+    padding: 20px;
+    width: 16%;
+    font-family: 'Roboro', sans-serif;
+    font-size: 18px;
+    border-left: 3px solid #cbd7fe;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+    
+}
+    .master-calendar-section h3,
+    .master-calendar-section h4 {
+        margin-bottom: 10px;
+        color: #575d6f;
+        font-size:20px;
+        text-align:center;
+    }
+
+    .master-calendar-section label {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .master-calendar-section input[type="datetime-local"],
+    .master-calendar-section select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        justify-items:center;
+    }
+.add-available-time {
+    background-color: #4169e1;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .add-available-time:hover {
+        background-color: #6c91ff;
+    }
+
+.master-calendar-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.master-calendar-section li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+    .master-calendar-section li button {
+        background-color: #e53935;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+    }
+
+        .master-calendar-section li button:hover {
+            background-color: #c62828;
+        }
+
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.available-times-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.available-times-list li {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #f3f3f3;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.master-orders-section {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f4f9f4;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.order-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border-left: 5px solid #4CAF50;
+    border-radius: 5px;
+}
+
+/*заказы мастера*/
+.profile-wrapper {
+    display: flex;
+    padding: 20px;
+    margin-top:5%;
+}
+
+.sidebar {
+    font-family:'Roboro', sans-serif;
+    font-size: 18px;
+    width: 16%;
+    padding:25px;
+    border-right: 3px solid #cbd7fe;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    height:auto;
+}
+    .sidebar h3 {
+        padding:0px 0px 20px;
+        font-size:24px;
+        color:#afb9d8;
+        text-align:center;
+    }
+    .sidebar p {
+        padding-top: 10px;
+        
+    }
+.main-content {
+    flex: 1;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.logout-button {
+    background: #b293ff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width:30%;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+    .order-table th, .order-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+.row-pending {
+    background-color: #fffbe6;
+}
+
+.row-confirmed {
+    background-color: #e6ffed;
+}
+
+.row-cancelled {
+    background-color: #ffe6e6;
+}
+
+.row-completed {
+    background-color: #e6f0ff;
+}
+
+.filters {
+    margin-bottom: 15px;
+}
+
+    .filters label {
+        margin-right: 10px;
+    }
+ 
+/*записи клиента*/
+.booking-list {
+    list-style-type: none;
+    padding: 0;
+    width:90%;
+    
+}
+
+.booking-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 20px 0;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    font-size: 17px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .booking-item p {
+        margin: 6px 8px;
+        color:#2f2e2e;
+    }
+
+    .booking-item .cancel-button {
+        padding: 5px 10px;
+        background-color: #ff7f7f;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-size:15px;
+        width:10%;
+    }
+
+        .booking-item .cancel-button:hover {
+            background-color: #c85252;
+        }
+
+    .booking-item.cancelled {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+        .booking-item.cancelled .cancel-button {
+            background-color: #e03e3e;
+            cursor: not-allowed;
+        }

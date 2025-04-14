@@ -1,0 +1,326 @@
+/* Общие стили для главной страницы */
+.home-container {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f4f4f9;
+    padding-top: 5%;
+}
+/* Стили для заголовка */
+.home-header {
+    text-align: center;
+}
+    .home-header h1 {
+        margin-bottom: 30px;
+    }
+
+    .home-header p {
+        font-size: 1.5rem;
+    }
+
+/* Стили для секции услуг */
+.services-section {
+    margin-top: 40px;
+}
+
+    .services-section h2 {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+.services-list {
+    display: flex;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 50px;
+    justify-items: center;
+    margin: 2% 5% 3% 5%;
+}
+
+.service-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+
+}
+
+    .service-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .service-card p {
+        font-size: 1rem;
+        color: white;
+        
+    }
+
+    .service-card strong {
+        font-size: 1.2rem;
+        color: royalblue;
+    }
+
+/* Стили для секции контактов */
+.contact-section {
+    margin-top: 90px;
+    text-align: center;
+}
+
+    .contact-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .contact-section p {
+        font-size: 1.2rem;
+        margin: 10px 0;
+    }
+.add-service-button {
+    background-color: royalblue;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    margin: 0 auto;
+}
+
+    .add-service-button:hover {
+        background-color: #2a4ea0;
+    }
+
+.services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* Контейнер для формы добавления услуги */
+.add-service-form {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    /* Заголовок формы */
+    .add-service-form h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    /* Общие стили для всех полей формы */
+    .add-service-form input,
+    .add-service-form textarea,
+    .add-service-form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    /* Стили для кнопок */
+    .add-service-form button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+        /* Цвет кнопки отправки */
+        .add-service-form button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Цвет кнопки отмены */
+        .add-service-form button[type="button"] {
+            background-color: #f44336;
+            color: white;
+        }
+
+    /* Элементы формы */
+    .add-service-form label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    /* Фокус на полях */
+    .add-service-form input:focus,
+    .add-service-form textarea:focus,
+    .add-service-form select:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    /* Блок для кнопок, чтобы они выравнивались по горизонтали */
+    .add-service-form .button-container {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+    }
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+.success-message {
+    color: green;
+    font-size: 14px;
+}
+.service-card {
+    position: relative; /* Устанавливаем позиционирование для дочернего элемента */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    
+    overflow: hidden; /* Скрываем все, что выходит за пределы карточки */
+    transition: transform 0.3s ease-in-out; /* Плавное увеличение при наведении */
+}
+
+    .service-card:hover {
+        transform: scale(1.05); /* Увеличиваем карточку при наведении */
+    }
+
+    /*.service-card .service-description {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        background-color: rgba(0, 0, 0, 0.3);*/ /* Полупрозрачный фон */
+        /*color: white;
+        padding: 20px;
+        font-weight: bold;
+        border-radius: 4px;
+        opacity: 0;*/ /* Скрываем описание по умолчанию */
+        /*transition: opacity 0.3s ease-in-out;
+    }*/
+
+    /*.service-card:hover .service-description {
+        opacity: 1;*/ /* Показываем описание при наведении */
+    /*}*/
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    
+}
+    .modal-content select{
+        height:30px;
+        font-size:18px;
+    }
+    .modal-content div {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .modal-content h2 {
+        margin-top: 0;
+        text-align: center;
+    }
+    .modal-content label {
+        font-size: 18px;
+        margin-bottom:10px;
+    }
+    .modal-content input {
+        padding: 10px;
+    }
+    .button-container {
+        margin-top: 15px;
+        align-items:center;
+    }
+        .button-container button {
+            background: #b6ccff;
+            border-radius: 12px;
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 15px;
+            width: 30%;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            color:#2f478f;
+            border-color:white;
+        }
+
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    /*запись на услугу*/
+    .book-button {
+    margin-top: 10px;
+    padding: 8px 14px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .book-button:hover {
+        background-color: #574fd6;
+    }
+.time-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+    .time-list li {
+        margin-bottom: 8px;
+        background: #f1f1f1;
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    .time-list input[type="radio"] {
+        margin-right: 10px;
+    }
+.message, .booking-message {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #dff0d8;
+    border-left: 5px solid #3c763d;
+    color: #3c763d;
+    border-radius: 5px;
+}

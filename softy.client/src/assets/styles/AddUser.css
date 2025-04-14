@@ -1,0 +1,37 @@
+.add-user-container {
+    max-width: 400px;
+    margin: auto;
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 255, 0.1);
+    margin-top: 5%;
+}
+
+.add-user-form input,
+.add-user-form select,
+.add-user-form button {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size:17px;
+}
+
+.add-user-form button {
+    background-color: royalblue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+    .add-user-form button:hover {
+        background-color: #4169e1;
+    }
+
+.form-message {
+    text-align: center;
+    color: green;
+}

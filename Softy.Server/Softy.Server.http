@@ -1,0 +1,6 @@
+@Softy.Server_HostAddress = http://localhost:5044
+
+GET {{Softy.Server_HostAddress}}/services/
+Accept: application/json
+
+###

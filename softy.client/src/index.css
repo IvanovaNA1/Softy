@@ -1,0 +1,27 @@
+:root {
+    color-scheme: light;
+    height: 100%;
+    width: 100%;
+    
+}
+@font-face {
+    font-family: 'Roboto';
+}
+a {
+  font-weight: 500;
+  color: royalblue;
+  text-decoration: inherit;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+
+
+
+

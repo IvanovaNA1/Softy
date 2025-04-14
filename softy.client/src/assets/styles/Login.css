@@ -1,0 +1,87 @@
+/* Основной контейнер для страницы */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    margin-top:10%;
+    padding: 20px;
+    background-color: #f9f9f9; /* Светлый фон */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Стили для формы */
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+    .input-field:focus {
+        border-color: royalblue;
+        outline: none;
+    }
+
+/* Стили для checkbox */
+.checkbox-group {
+    font-size: 14px;
+    color: #333;
+}
+
+    .checkbox-group input {
+        margin-right: 5px;
+    }
+
+/* Ошибка */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Стили для кнопки */
+.submit-btn {
+    padding: 12px;
+    background-color: royalblue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .submit-btn:hover {
+        background-color: #4169e1; /* Темно-синий при наведении */
+    }
+
+    .submit-btn:focus {
+        outline: none;
+    }

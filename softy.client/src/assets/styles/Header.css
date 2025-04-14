@@ -1,0 +1,94 @@
+header {
+    background-color: whitesmoke;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    padding: 20px 0;
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.1); /* Тень для глубины */
+    position: fixed; /* Закрепляем шапку на экране */
+    width: 100%; /* Ширина на весь экран */
+    top: 0; /* Фиксируем сверху */
+    display: flex;
+}
+
+    /* Стили для навигации в хедере */
+    header nav {
+        margin-top: 10px;
+        margin-left:65%;
+    }
+
+        header nav ul {
+            list-style-type: none; /* Убираем маркеры у списка */
+            padding: 0;
+            margin: 0;
+        }
+
+            header nav ul li {
+                display: inline-block; /* Делаем элементы меню в одну строку */
+                margin: 0 10px;
+            }
+
+                header nav ul li a {
+                    color: black;
+                    text-decoration: none; /* Убираем подчеркивание */
+                    font-size: 18px;
+                    transition: color 0.3s ease; /* Плавное изменение цвета */
+                }
+
+                    header nav ul li a:hover {
+                        color: royalblue;
+                    }
+
+    /* Стиль для логотипа в хедере */
+    header h1 {
+        font-size: 40px; /* Большой размер шрифта */
+        margin: 0 20px;
+        letter-spacing: 5px; /* Немного увеличим расстояние между буквами */
+    }
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    position: relative;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    padding: 8px 12px;
+    display: block;
+}
+
+
+/* dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column; /* столбиком */
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    z-index: 100;
+    padding: 0;
+    margin: 0;
+}
+
+    .dropdown-menu li {
+        width: 150px;
+    }
+
+    .dropdown-menu a {
+        padding: 10px 15px;
+        white-space: nowrap;
+        transition: background-color 0.2s;
+    }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }

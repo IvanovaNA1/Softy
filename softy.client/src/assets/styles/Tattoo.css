@@ -1,0 +1,63 @@
+
+.container {
+    max-width: 1350px;
+    margin: 10px auto;
+    padding: 10px;
+    margin-top:4%;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 10px;
+    margin-left: 50px;
+}
+
+.controls {
+    margin-bottom: 15px;
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+}
+
+select, input {
+    margin: 5px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+#canvas-container {
+    width: 950px;
+    height: 650px;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+#imageContainer {
+    width: 220px;
+    height: auto;
+    padding: 5px;
+    border: dashed 3px grey;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+#previewImage {
+    width: 220px;
+    height: auto;
+}
