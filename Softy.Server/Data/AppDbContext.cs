@@ -15,7 +15,6 @@ namespace Softy.Server.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Настройка CreatedAt и UpdatedAt
             modelBuilder.Entity<Order>()
                 .Property(o => o.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");

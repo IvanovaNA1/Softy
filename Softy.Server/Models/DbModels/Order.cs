@@ -13,6 +13,7 @@ namespace Softy.Server.Models.DbModels
         [Column("status_id")] public int StatusId { get; set; }
         [Column("created_at")] public DateTime CreatedAt { get; set; }
         [Column("updated_at")] public DateTime UpdatedAt { get; set; }
+        
         public User User { get; set; }
         public AvailableTime AvailableTime { get; set; }
         public OrderStatus Status { get; set; }

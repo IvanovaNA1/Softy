@@ -2,8 +2,9 @@
 .container {
     max-width: 1350px;
     margin: 10px auto;
+    height:10%;
     padding: 10px;
-    margin-top:4%;
+    margin-top:5%;
     background-color: #eaeaea;
     border-radius: 10px;
     display: flex;
@@ -48,8 +49,8 @@ select, input {
     margin-top: 10px;
 }
 
-#imageContainer {
-    width: 220px;
+.image-preview {
+    width: 200px;
     height: auto;
     padding: 5px;
     border: dashed 3px grey;
@@ -57,7 +58,7 @@ select, input {
     margin: 5px;
 }
 
-#previewImage {
-    width: 220px;
+.image-preview img{
+    width: 200px;
     height: auto;
 }

@@ -18,11 +18,11 @@ const App = () => {
             <Header /> 
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/account/login" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/tattoo-viewer" element={<TattooViewer />} />
-                <Route path="/services" element={<Services />} />
+                <Route path="/service" element={<Services />} />
                 <Route path="/users" element={<AddUser />} />
             </Routes>
             <Footer /> 

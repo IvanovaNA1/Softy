@@ -52,6 +52,54 @@ namespace Softy.Server.Controllers
             return Ok(profileData);
         }
 
+        [HttpPut("update-profile")]
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileModel model)
+        {
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!int.TryParse(userIdClaim, out int userId))
+            {
+                return Unauthorized(new { message = "Неверные учетные данные." });
+            }
+
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound(new { message = "Пользователь не найден." });
+            }
+
+            // Обновляем только переданные поля
+            if (!string.IsNullOrWhiteSpace(model.Name))
+                user.Name = model.Name;
+
+            if (!string.IsNullOrWhiteSpace(model.Surname))
+                user.Surname = model.Surname;
+
+            if (!string.IsNullOrWhiteSpace(model.Phone))
+                user.Phone = model.Phone;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                var updatedUserDto = new User
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    Phone = user.Phone,
+                    Password = user.Password,
+                    RoleId = user.RoleId
+                };
+
+                return Ok(updatedUserDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ошибка при сохранении изменений.", error = ex.Message });
+            }
+        }
+
         [HttpGet("masters")]
         [Authorize(Roles = "master")]
         public async Task<IActionResult> GetMasters()

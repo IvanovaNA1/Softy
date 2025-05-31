@@ -7,7 +7,6 @@ using Softy.Server.Data;
 using Softy.Server.Models;
 using Softy.Server.Models.DbModels;
 using System.Security.Claims;
-using System.Security.Principal;
 
 namespace Softy.Server.Controllers
 {
@@ -57,8 +56,8 @@ namespace Softy.Server.Controllers
 
                 var authProperties = new AuthenticationProperties
                 {
-                    ExpiresUtc = DateTime.UtcNow.AddHours(1),  // Время жизни 
-                    IsPersistent = loginModel.RememberMe  // Флаг для постоянной сессии
+                    ExpiresUtc = DateTime.UtcNow.AddHours(10),   
+                    IsPersistent = loginModel.RememberMe  
                 };
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authProperties);

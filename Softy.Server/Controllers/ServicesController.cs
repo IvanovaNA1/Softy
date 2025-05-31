@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Softy.Server.Data;
 using Softy.Server.Models;
 using Softy.Server.Models.DbModels;
-using System.Security.Claims;
 
 namespace Softy.Controllers
 {
@@ -18,7 +17,6 @@ namespace Softy.Controllers
             _context = context;
         }
 
-        // Получение списка всех услуг
         [HttpGet]
         public async Task<IActionResult> GetServices([FromQuery] int? type)
         {
@@ -27,12 +25,12 @@ namespace Softy.Controllers
             if (type.HasValue)
                 query = query.Where(s => s.ServiceTypeId == type.Value);
 
-            // Асинхронный вызов для получения списка
-            var services = await query.ToListAsync();
+            var services = await query
+                .Include(s => s.ServiceType)
+                .ToListAsync();
 
             return Ok(services);
         }
-
 
         [HttpPost("add-service")]
         public async Task<ActionResult<Service>> AddService([FromBody] AddServiceModel request)
@@ -58,8 +56,41 @@ namespace Softy.Controllers
             return CreatedAtAction(nameof(GetServices), new { id = service.Id }, service);
         }
 
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteService(int id)
+        {
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound("Услуга не найдена.");
+            }
 
+            _context.Services.Remove(service);
+            await _context.SaveChangesAsync();
 
+            return Ok("Услуга успешно удалена.");
+        }
+
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateService(int id, [FromBody] AddServiceModel request)
+        {
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound("Услуга не найдена.");
+            }
+
+            service.Name = request.Name;
+            service.Description = request.Description;
+            service.Price = request.Price;
+            service.Duration = request.Duration;
+            service.ServiceTypeId = request.ServiceTypeId;
+
+            _context.Services.Update(service);
+            await _context.SaveChangesAsync();
+
+            return Ok(service);
+        }
     }
 }
 

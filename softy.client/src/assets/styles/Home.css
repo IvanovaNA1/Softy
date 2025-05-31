@@ -1,326 +1,221 @@
-/* Общие стили для главной страницы */
+п»ї/* РћР±С‰РёРµ СЃС‚РёР»Рё РґР»СЏ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹ */
 .home-container {
     font-family: 'Roboto', sans-serif;
     color: #333;
     background-color: #f4f4f9;
-    padding-top: 5%;
+    padding-top: 8%;
+    height:100%;
 }
-/* Стили для заголовка */
-.home-header {
-    text-align: center;
-}
-    .home-header h1 {
-        margin-bottom: 30px;
-    }
-
-    .home-header p {
-        font-size: 1.5rem;
-    }
-
-/* Стили для секции услуг */
-.services-section {
-    margin-top: 40px;
-}
-
-    .services-section h2 {
-        font-size: 2rem;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-.services-list {
-    display: flex;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 50px;
-    justify-items: center;
-    margin: 2% 5% 3% 5%;
-}
-
-.service-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.main-container {
+    max-width: 1400px;
     width: 100%;
-    max-width: 300px;
-
+    margin: auto;
 }
 
-    .service-card h3 {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-    }
-
-    .service-card p {
-        font-size: 1rem;
-        color: white;
-        
-    }
-
-    .service-card strong {
-        font-size: 1.2rem;
-        color: royalblue;
-    }
-
-/* Стили для секции контактов */
-.contact-section {
-    margin-top: 90px;
-    text-align: center;
+.content-wrapper {
+    display: flex;
+    gap: 13.5rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
-    .contact-section h2 {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-    }
+.text-section {
+    flex: 1;
+    
+}
 
-    .contact-section p {
-        font-size: 1.2rem;
-        margin: 10px 0;
-    }
-.add-service-button {
-    background-color: royalblue;
+.main-title {
+    font-size: 2.9rem;
+    line-height: 1.3;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    width: 615px;
+}
+
+.cta-button {
+    background-color: #599aea;
     color: white;
     border: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 9999px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease, width 0.3s ease, padding-right 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+    /* РЎС‚СЂРµР»РѕС‡РєР° вЂ” Р»РёРЅРёСЏ */
+    .cta-button::after {
+        content: '';
+        position: absolute;
+        right: -40px; /* СЃРїСЂСЏС‚Р°РЅР° Р·Р° РіСЂР°РЅРёС†РµР№ */
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px; /* РґР»РёРЅР° СЃС‚СЂРµР»РєРё */
+        height: 2px;
+        background-color: currentColor;
+        transition: right 0.3s ease;
+        z-index: 1;
+    }
+
+    /* РљРѕРЅС‡РёРє СЃС‚СЂРµР»РѕС‡РєРё (С‚СЂРµСѓРіРѕР»СЊРЅРёРє) */
+    .cta-button::before {
+        content: '';
+        position: absolute;
+        right: -46px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+        border-right: 4px solid currentColor;
+        border-top: 4px solid currentColor;
+        width: 0;
+        height: 0;
+        transition: right 0.3s ease;
+        z-index: 1;
+    }
+
+    /* РЈРІРµР»РёС‡РёРІР°РµРј РєРЅРѕРїРєСѓ Рё РїРѕРєР°Р·С‹РІР°РµРј СЃС‚СЂРµР»РѕС‡РєСѓ */
+    .cta-button:hover {
+        padding-right: 4rem;
+    }
+
+        .cta-button:hover::after,
+        .cta-button:hover::before {
+            right: 16px;
+        }
+
+.image-layout {
     display: flex;
+    flex: 1;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.left-column {
+    flex: 1;
+}
+
+.right-column {
+    flex: 1;
+}
+
+.tall.grid-image {
+    height: 100%;
+    object-fit: cover;
+    width:300px;
+    height:615px;
+}
+
+.grid-image {
+    width: 250px;
+    height: 300px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+    .grid-image:hover {
+        transform: translateY(-5px);
+    }
+
+/* РЎРµРєС†РёСЏ "Рћ РЅР°СЃ" */
+.about-us-section {
+    margin-top:4rem;
+    padding: 1rem 3rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 500;
+    font-style:italic;
+    color: #333;
+    text-align: left;
+}
+
+.about-us-content {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+}
+
+.about-us-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+    .about-us-image img {
+        width: 400px;
+        height: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+.about-us-number {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #599aea;
+}
+
+.about-us-description {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Р‘Р»РѕРє "РќР°С€Р° РјРёСЃСЃРёСЏ" */
+.mission-section {
+    margin-top: 5rem;
+    text-align: center;
+}
+
+.mission-title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #333;
+    position: relative;
+}
+
+    .mission-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        height: 3px;
+        background-color: #599aea;
+    }
+
+.mission-description {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #333;
+    margin-top: 2rem;
+    max-width: 600px;
     margin: 0 auto;
 }
 
-    .add-service-button:hover {
-        background-color: #2a4ea0;
-    }
-
-.services-header {
+.mission-decorations {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-}
-/* Контейнер для формы добавления услуги */
-.add-service-form {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
 }
 
-    /* Заголовок формы */
-    .add-service-form h2 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        color: #333;
-    }
-
-    /* Общие стили для всех полей формы */
-    .add-service-form input,
-    .add-service-form textarea,
-    .add-service-form select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-
-    /* Стили для кнопок */
-    .add-service-form button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-right: 10px;
-    }
-
-        /* Цвет кнопки отправки */
-        .add-service-form button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        /* Цвет кнопки отмены */
-        .add-service-form button[type="button"] {
-            background-color: #f44336;
-            color: white;
-        }
-
-    /* Элементы формы */
-    .add-service-form label {
-        font-weight: bold;
-        margin-bottom: 5px;
-        display: block;
-    }
-
-    /* Фокус на полях */
-    .add-service-form input:focus,
-    .add-service-form textarea:focus,
-    .add-service-form select:focus {
-        border-color: #4CAF50;
-        outline: none;
-    }
-
-    /* Блок для кнопок, чтобы они выравнивались по горизонтали */
-    .add-service-form .button-container {
-        display: flex;
-        justify-content: flex-start;
-        margin-top: 20px;
-    }
-.error-message {
-    color: red;
-    font-size: 14px;
+.mission-flower-left,
+.mission-flower-right {
+    width: 100px;
+    opacity: 0.7;
 }
 
-.success-message {
-    color: green;
-    font-size: 14px;
-}
-.service-card {
-    position: relative; /* Устанавливаем позиционирование для дочернего элемента */
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    
-    overflow: hidden; /* Скрываем все, что выходит за пределы карточки */
-    transition: transform 0.3s ease-in-out; /* Плавное увеличение при наведении */
-}
-
-    .service-card:hover {
-        transform: scale(1.05); /* Увеличиваем карточку при наведении */
-    }
-
-    /*.service-card .service-description {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
-        background-color: rgba(0, 0, 0, 0.3);*/ /* Полупрозрачный фон */
-        /*color: white;
-        padding: 20px;
-        font-weight: bold;
-        border-radius: 4px;
-        opacity: 0;*/ /* Скрываем описание по умолчанию */
-        /*transition: opacity 0.3s ease-in-out;
-    }*/
-
-    /*.service-card:hover .service-description {
-        opacity: 1;*/ /* Показываем описание при наведении */
-    /*}*/
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 30px 40px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease-in-out;
-    
-}
-    .modal-content select{
-        height:30px;
-        font-size:18px;
-    }
-    .modal-content div {
-        margin-bottom: 15px;
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
-    }
-    .modal-content h2 {
-        margin-top: 0;
-        text-align: center;
-    }
-    .modal-content label {
-        font-size: 18px;
-        margin-bottom:10px;
-    }
-    .modal-content input {
-        padding: 10px;
-    }
-    .button-container {
-        margin-top: 15px;
-        align-items:center;
-    }
-        .button-container button {
-            background: #b6ccff;
-            border-radius: 12px;
-            margin-top: 10px;
-            padding: 5px 10px;
-            font-size: 15px;
-            width: 30%;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            color:#2f478f;
-            border-color:white;
-        }
-
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-    /*запись на услугу*/
-    .book-button {
-    margin-top: 10px;
-    padding: 8px 14px;
-    background-color: #6c63ff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-    .book-button:hover {
-        background-color: #574fd6;
-    }
-.time-list {
-    list-style: none;
-    padding: 0;
-    margin: 15px 0;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-    .time-list li {
-        margin-bottom: 8px;
-        background: #f1f1f1;
-        padding: 10px;
-        border-radius: 6px;
-    }
-
-    .time-list input[type="radio"] {
-        margin-right: 10px;
-    }
-.message, .booking-message {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #dff0d8;
-    border-left: 5px solid #3c763d;
-    color: #3c763d;
-    border-radius: 5px;
-}

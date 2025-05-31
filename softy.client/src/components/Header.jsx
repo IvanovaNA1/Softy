@@ -24,17 +24,17 @@ const Header = () => {
                         onMouseEnter={() => setDropdownOpen(true)}
                         onMouseLeave={() => setDropdownOpen(false)}
                     >
-                        <Link to="/services">Услуги</Link>
+                        <Link to="/service">Услуги</Link>
                         {dropdownOpen && (
                             <ul className="dropdown-menu">
-                                <li><Link to="/services?type=1">Ресницы</Link></li>
-                                <li><Link to="/services?type=2">Брови</Link></li>
-                                <li><Link to="/services?type=3">Татуировки</Link></li>
+                                <li><Link to="/service?type=1">Ресницы</Link></li>
+                                <li><Link to="/service?type=2">Брови</Link></li>
+                                <li><Link to="/service?type=3">Татуировки</Link></li>
                             </ul>
                         )}
                     </li>
                     <li><Link to="/profile">Профиль</Link></li>
-                    <Link to="/tattoo-viewer">Татуировки</Link>
+                    <li><Link to="/tattoo-viewer">Татуировки</Link></li>
                     {userRole === 1 && (
                         <li><Link to="/users">Мастера</Link></li>
                     )}

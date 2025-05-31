@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Softy.Server.Models.AddServiceModel">
+    <Position X="10.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAiAAAAAAIAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AddServiceModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.AvailableTimeModel">
+    <Position X="10.5" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AvailableTimeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.CreateOrderModel">
+    <Position X="12.25" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Models\CreateOrderModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.LoginModel">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAIAAgAAA=</HashCode>
+      <FileName>Models\LoginModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.ProfileModel">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQABAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\ProfileModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.RegisterModel">
+    <Position X="12.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAQABAAAAAACAAAAIAAAAAA=</HashCode>
+      <FileName>Models\RegisterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Controllers.AccountController">
+    <Position X="16.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAIAAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Controllers.OrderController">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Softy.Server.Controllers.OrderController.StatusUpdateDto" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\OrderController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQBCAAAEAAAAAAAQAgAQAAgAAAAAAAIAA=</HashCode>
+      <FileName>Controllers\OrderController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Controllers.TattooController">
+    <Position X="18" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\TattooController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Controllers.UsersController">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAEAAAAAAAAAAAAAAgABAAAAAAAAA=</HashCode>
+      <FileName>Controllers\UsersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Controllers.ServicesController">
+    <Position X="18" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAACAAAAAAAAAAAAAAAAAAAECAABAA=</HashCode>
+      <FileName>Controllers\ServicesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Data.AppDbContext">
+    <Position X="16.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEIACAAAAAAAEAAAAAAAAAAEwAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\AppDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="14.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Mvc.ControllerBase" Collapsed="true">
+    <Position X="18.25" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.EntityFrameworkCore.DbContext" Collapsed="true">
+    <Position X="18" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Softy.Server.Models.DbModels.AvailableTime">
+    <Position X="14.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEHACAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DbModels\AvailableTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.DbModels.Order">
+    <Position X="12.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAHAAAMAAABCAAAACAAAAgAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Models\DbModels\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.DbModels.OrderStatus">
+    <Position X="10.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DbModels\OrderStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.DbModels.Role">
+    <Position X="14.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DbModels\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.DbModels.Service">
+    <Position X="12.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAAAQAiAAAAAAIAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DbModels\Service.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.DbModels.ServiceType">
+    <Position X="10.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DbModels\ServiceType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Softy.Server.Models.DbModels.User">
+    <Position X="10.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAAAAAAAAAEAAAAAQABAAAAAACAAAAIAAAAAA=</HashCode>
+      <FileName>Models\DbModels\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

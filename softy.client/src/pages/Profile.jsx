@@ -12,6 +12,12 @@ const statuses = [
 ];
 const Profile = () => {
     const [user, setUser] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editData, setEditData] = useState({
+        name: '',
+        surname: '',
+        phone: ''
+    });
     const [services, setServices] = useState([]);
     const [availableTimes, setAvailableTimes] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
@@ -27,6 +33,7 @@ const Profile = () => {
     const [statusFilter, setStatusFilter] = useState('');
     const [statusSuccessMessage, setStatusSuccessMessage] = useState('');
     const [clientOrders, setClientOrders] = useState([]);
+    const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,7 +48,7 @@ const Profile = () => {
                 const status = error.response?.status;
                 if (status === 401) {
                     setIsUnauthorized(true);
-                    navigate("/account/login");
+                    navigate("/login");
                 } else {
                     setErrorMessage("Ошибка загрузки профиля");
                 }
@@ -81,12 +88,61 @@ const Profile = () => {
             loadOrders();
         }
     }, [user]);
+    useEffect(() => {
+        if (user) {
+            setEditData({
+                name: user.name,
+                surname: user.surname,
+                phone: user.phone
+            });
+        }
+    }, [user]);
+    const validateFields = () => {
+        const newErrors = {};
+
+        if (!editData.name.trim()) {
+            newErrors.name = "Имя не может быть пустым";
+        }
+
+        if (!editData.surname.trim()) {
+            newErrors.surname = "Фамилия не может быть пустой";
+        }
+
+        const phoneRegex = /^\+7\d{10,11}$/;
+        if (!editData.phone.trim()) {
+            newErrors.phone = "Телефон не может быть пустым";
+        } else if (!phoneRegex.test(editData.phone)) {
+            newErrors.phone = "Телефон должен начинаться с +7 и содержать 11–12 цифр";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSaveProfile = async () => {
+        if (!validateFields()) return;
+
+        try {
+            const response = await axios.put(
+                'https://localhost:7092/users/update-profile',
+                editData,
+                { withCredentials: true }
+            );
+
+            setUser(response.data); // Обновляем данные пользователя
+            setIsEditing(false);
+            alert('Профиль успешно обновлён');
+        } catch (error) {
+            console.error('Ошибка при обновлении профиля:', error);
+            alert('Не удалось сохранить изменения');
+        }
+    };
 
     const handleLogout = async () => {
         try {
             const response = await axios.post("https://localhost:7092/account/logout", {}, { withCredentials: true });
             if (response.status === 200) {
-                navigate("/account/login");
+                navigate("/login");
                 window.location.reload();
             }
         } catch (error) {
@@ -216,13 +272,50 @@ const Profile = () => {
                 </div>
             ) : user ? (
                 <>
-                    <div className="sidebar">
-                        <h3>Профиль</h3>
-                        <p><strong>Имя:</strong> {user.name}</p>
-                        <p><strong>Фамилия:</strong> {user.surname}</p>
-                        <p><strong>Телефон:</strong> {user.phone}</p>
-                        <button onClick={handleLogout} className="logout-button">Выйти</button>
-                    </div>
+                        <div className="sidebar">
+                            {isEditing ? (
+                                <>
+                                    <div className="form-group">
+                                        <label>Имя:</label>
+                                        <input
+                                            type="text"
+                                            value={editData.name}
+                                            onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+                                        />
+                                        {errors.name && <span className="error-message">{errors.name}</span>}
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Фамилия:</label>
+                                        <input
+                                            type="text"
+                                            value={editData.surname}
+                                            onChange={(e) => setEditData({ ...editData, surname: e.target.value })}
+                                        />
+                                        {errors.surname && <span className="error-message">{errors.surname}</span>}
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Телефон:</label>
+                                        <input
+                                            type="text"
+                                            value={editData.phone}
+                                            onChange={(e) => setEditData({ ...editData, phone: e.target.value })}
+                                        />
+                                        {errors.phone && <span className="error-message">{errors.phone}</span>}
+                                    </div>
+                                    <button onClick={handleSaveProfile} className="save-button">Сохранить</button>
+                                    <button onClick={() => setIsEditing(false)} className="cancel-button">Отмена</button>
+                                </>
+                            ) : (
+                                    <>
+                                    <button onClick={() => setIsEditing(true)} className="edit-button">Редактировать профиль</button>
+                                    <p><strong>Имя:</strong> {user.name}</p>
+                                    <p><strong>Фамилия:</strong> {user.surname}</p>
+                                    <p><strong>Телефон:</strong> {user.phone}</p>
+                                    
+                                    <button onClick={handleLogout} className="logout-button">Выйти</button>
+                                </>
+                            )}
+                        </div>
 
                     <div className="main-content">
                         {user.roleId === 1 ? (

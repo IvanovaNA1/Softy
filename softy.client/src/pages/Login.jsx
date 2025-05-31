@@ -1,7 +1,8 @@
 ﻿import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Импортируем useNavigate для перенаправления
-import '../assets/styles/Login.css';  // Подключаем файл стилей
+import { useNavigate } from 'react-router-dom';  
+import '../assets/styles/Login.css'; 
+
 
 
 const Login = () => {
@@ -13,22 +14,49 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        const cleanedPhone = phone.replace(/\D/g, '');
         try {
             const response = await axios.post("https://localhost:7092/account/login", {
-                phone,
+                phone: cleanedPhone,
                 password,
                 rememberMe,
             });
             console.log(response.data); 
-            // Если успешная авторизация, перенаправляем на профиль
             navigate("/profile");
             window.location.reload();
-        } catch (error) {
-            setErrorMessage("Ошибка авторизации: " + error.response?.data?.message);
+        } catch {
+            setErrorMessage("Ошибка авторизации");
         }
     };
     const handleLoginRedirect = () => {
-        navigate("/register"); // Переход на страницу логина (если нужно)
+        navigate("/register"); 
+    };
+    const handlePhoneChange = (e) => {
+        let input = e.target.value;
+        // Убираем всё, кроме цифр
+        const digits = input.replace(/\D/g, '');
+
+        if (digits.length === 0) {
+            setPhone('');
+            return;
+        }
+
+        // Форматируем как +7 (999) 999-99-99
+        let formatted = '+7 ';
+        if (digits.length > 1) {
+            formatted += '(' + digits.substring(1, 4);
+        }
+        if (digits.length >= 4) {
+            formatted += ') ' + digits.substring(4, 7);
+        }
+        if (digits.length >= 7) {
+            formatted += '-' + digits.substring(7, 9);
+        }
+        if (digits.length >= 9) {
+            formatted += '-' + digits.substring(9, 11);
+        }
+
+        setPhone(formatted);
     };
 
     return (
@@ -40,7 +68,8 @@ const Login = () => {
                     <input
                         type="text"
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={handlePhoneChange}
+                        placeholder="+7 (999) 999-99-99"
                         required
                         className="input-field"
                     />

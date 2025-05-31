@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
-import '../assets/styles/Home.css';
+import '../assets/styles/Service.css';
 
 const Services = () => {
     const [services, setServices] = useState([]);
@@ -19,6 +19,8 @@ const Services = () => {
         serviceTypeId: 1
     });
     const [message, setMessage] = useState('');
+    const [editingService, setEditingService] = useState(null);
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const selectedType = queryParams.get('type');
@@ -53,31 +55,88 @@ const Services = () => {
             return;
         }
 
-        axios.post('https://localhost:7092/services/add-service', newService)
-            .then(response => {
-                setServices([...services, response.data]);
-                setShowForm(false);
-                setNewService({ name: '', description: '', price: '', duration: '', serviceTypeId: 1 });
-                setMessage('Услуга успешно добавлена!');
-            })
-            .catch(error => {
-                console.error('Ошибка при добавлении услуги:', error);
-                setMessage('Произошла ошибка при добавлении услуги.');
-            });
+        if (editingService) {
+            axios.put(`https://localhost:7092/services/update/${editingService.id}`, newService)
+                .then(response => {
+                    setServices(services.map(service =>
+                        service.id === editingService.id ? response.data : service
+                    ));
+                    setShowForm(false);
+                    setEditingService(null);
+                    setNewService({ name: '', description: '', price: '', duration: '', serviceTypeId: 1 });
+                    setMessage('Услуга успешно изменена!');
+                    setTimeout(() => setMessage(''), 3000);
+                })
+                .catch(error => {
+                    console.error('Ошибка при изменении услуги:', error);
+                    setMessage('Произошла ошибка при изменении услуги.');
+                });
+        } else {
+            axios.post('https://localhost:7092/services/add-service', newService)
+                .then(response => {
+                    setServices([...services, response.data]);
+                    setShowForm(false);
+                    setNewService({ name: '', description: '', price: '', duration: '', serviceTypeId: 1 });
+                    setMessage('Услуга успешно добавлена!');
+                    setTimeout(() => setMessage(''), 3000);
+                })
+                .catch(error => {
+                    console.error('Ошибка при добавлении услуги:', error);
+                    setMessage('Произошла ошибка при добавлении услуги.');
+                });
+        }
     };
+
+    const handleDeleteService = async (serviceId) => {
+        try {
+            const response = await axios.delete(`https://localhost:7092/services/delete/${serviceId}`);
+            if (response.status === 200) {
+                setServices(services.filter(service => service.id !== serviceId));
+                setMessage('Услуга успешно удалена!');
+                setTimeout(() => setMessage(''), 3000);
+            }
+        } catch (error) {
+            console.error('Ошибка при удалении услуги:', error);
+            setMessage('Произошла ошибка при удалении услуги.');
+        }
+    };
+
+    const handleEditService = (service) => {
+        setEditingService(service); 
+        setNewService({
+            name: service.name,
+            description: service.description,
+            price: service.price,
+            duration: service.duration,
+            serviceTypeId: service.serviceTypeId
+        });
+        setShowForm(true); 
+    };
+
     const handleBookClick = async (serviceId) => {
-        // Сбрасываем сообщение, выбранное время и доступные времена при новом выборе услуги
         setBookingMessage('');
         setSelectedService(serviceId);
+
         setAvailableTimes([]);
-        setSelectedTimeId(null); // Сбрасываем выбранное время
+        setSelectedTimeId(null); 
 
         try {
             const response = await axios.get(`https://localhost:7092/orders/available-times?serviceId=${serviceId}`);
             setAvailableTimes(response.data);
         } catch (error) {
-            console.error('Ошибка при получении доступного времени:', error);
+            console.error('Нет доступного для записи времени', error);
         }
+    };
+    const handleAddService = () => {
+        setEditingService(null); 
+        setNewService({
+            name: '',
+            description: '',
+            price: '',
+            duration: '',
+            serviceTypeId: 1
+        });
+        setShowForm(true); 
     };
 
     const handleCreateOrder = async () => {
@@ -94,6 +153,7 @@ const Services = () => {
                 masterId: selected.masterId
             });
             setBookingMessage('Запись успешно создана!');
+            setTimeout(() => setBookingMessage(''), 3000);
             setSelectedService(null);
             setAvailableTimes([]);
             setSelectedTimeId(null);
@@ -103,15 +163,15 @@ const Services = () => {
         }
     };
 
-
     return (
         <div className="home-container">
             <section className="services-section">
                 <h2>Наши услуги</h2>
                 {userRole === 1 && (
-                    <button onClick={() => setShowForm(true)} className="add-service-button">
+                    <button onClick={handleAddService} className="add-service-button">
                         Добавить услугу
                     </button>)}
+                {message && <div className="message">{message}</div>}
                 <div className="services-list">
                     {services.length > 0 ? (
                         services.map(service => (
@@ -120,11 +180,25 @@ const Services = () => {
                                 <div className="service-description">
                                     <p>{service.description}</p>
                                 </div>
-                                <p><strong>Цена: {service.price} руб.</strong></p>
+                                <div className="service-info">
+                                    <span className="service-duration">{service.duration}</span>
+                                    <span className="service-price">от {service.price}₽</span>
+                                </div>
+                                {userRole != 1 && (
+                                    <button onClick={() => handleBookClick(service.id)} className="book-button">
+                                        Записаться
+                                    </button>)}
+                                {userRole === 1 && (
+                                    <>
+                                        <button onClick={() => handleEditService(service)} className="edit-button">
+                                            ✎
+                                        </button>
+                                        <button onClick={() => handleDeleteService(service.id)} className="delete-button">
+                                            ✖ 
+                                        </button>
+                                    </>
+                                )}
 
-                                <button onClick={() => handleBookClick(service.id)} className="book-button">
-                                    Записаться
-                                </button>
                             </div>
                         ))
                     ) : (
@@ -133,12 +207,10 @@ const Services = () => {
                 </div>
             </section>
 
-
-            {/* Модальное окно */}
             {showForm && (
                 <div className="modal-overlay" onClick={() => setShowForm(false)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
-                        <h2>Добавить новую услугу</h2>
+                        <h2>{editingService ? 'Изменить услугу' : 'Добавить новую услугу'}</h2>
                         <form onSubmit={handleSubmit}>
                             <div>
                                 <label>Название услуги</label>
@@ -192,47 +264,47 @@ const Services = () => {
                                 </select>
                             </div>
                             <div className="button-container">
-                                <button type="submit">Добавить</button>
-                                <button type="button" onClick={() => setShowForm(false)}>
-                                    Отменить
-                                </button>
+                                <button type="submit">{editingService ? 'Изменить' : 'Добавить'}</button>
+                                <button type="button" onClick={() => setShowForm(false)}>Отмена</button>
                             </div>
                         </form>
                     </div>
                 </div>
             )}
 
-            {message && <div className="message">{message}</div>}
-
             {selectedService && (
                 <div className="modal-overlay" onClick={() => setSelectedService(null)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
                         <h3>Выберите время и мастера</h3>
+
                         {availableTimes.length > 0 ? (
-                            <ul className="time-list">
-                                {availableTimes.map(time => (
-                                    <li key={time.id}>
-                                        <label>
-                                            <input
-                                                type="radio"
-                                                name="availableTime"
-                                                value={time.id}
-                                                checked={selectedTimeId === time.id}
-                                                onChange={() => setSelectedTimeId(time.id)}
-                                            />
-                                            {new Date(time.availableDate).toLocaleString()} — {time.masterName}
-                                        </label>
-                                    </li>
-                                ))}
-                            </ul>
+                            <>
+                                <ul className="time-list">
+                                    {availableTimes.map(time => (
+                                        <li key={time.id}>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name="availableTime"
+                                                    value={time.id}
+                                                    checked={selectedTimeId === time.id}
+                                                    onChange={() => setSelectedTimeId(time.id)}
+                                                />
+                                                {new Date(time.availableDate).toLocaleString()} — {time.masterName}
+                                            </label>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <div className="button-container">
+                                    <button onClick={handleCreateOrder}>Записаться на услугу</button>
+                                </div>
+                            </>
                         ) : (
                             <p>Нет доступного времени для записи</p>
                         )}
-                        <div className="button-container">
-                            <button onClick={handleCreateOrder}>Записаться на услугу</button>
-                            <button onClick={() => setSelectedService(null)}>Отмена</button>
-                        </div>
-                        {bookingMessage && <p>{bookingMessage}</p>}
+
+                        {bookingMessage && <p className="booking-message">{bookingMessage}</p>}
                     </div>
                 </div>
             )}
@@ -240,6 +312,5 @@ const Services = () => {
         </div>
     );
 };
-
 
 export default Services;
