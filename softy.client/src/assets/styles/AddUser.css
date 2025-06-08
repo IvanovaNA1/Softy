@@ -1,17 +1,19 @@
-.add-user-container {
-    max-width: 400px;
-    margin: auto;
-    background: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 0 12px rgba(0, 0, 255, 0.1);
-    margin-top: 5%;
-}
 
+    .add-user-container h2{
+        text-align:center;
+        margin-top:35%;
+    }
+    .add-user-form {
+        
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 .add-user-form input,
 .add-user-form select,
 .add-user-form button {
-    width: 100%;
+    width: 95%;
     margin-bottom: 1rem;
     padding: 0.5rem;
     border-radius: 6px;
@@ -35,3 +37,105 @@
     text-align: center;
     color: green;
 }
+
+
+.add-user-container {
+    display: flex;
+    margin: 7% 20% 5% 10%;
+    align-items: flex-start;
+    justify-content: space-between;
+
+}
+.deleted-button{
+    width:85%;
+    border:none;
+    font-weight:bold;
+    color:#fc240d;
+    background-color:transparent;
+    font-size:14px;
+}
+.user-list-section {
+    flex: 1;
+    max-width: 400px;
+}
+
+.form-section {
+    flex: 1;
+    max-width:400px;
+}
+.filters{
+    display:flex;
+}
+.filters input,
+.filters select {
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 8px;
+    border:solid 1px #92adff;
+}
+    .filters select{
+        width:auto;
+        margin-right:auto;
+    }
+    .user-list {
+        list-style: none;
+        padding: 0;
+    }
+
+.user-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+}
+
+.form-message {
+    color: green;
+    margin-top: 10px;
+}
+.scrollable-table-wrapper {
+    max-height: 600px;
+    width:800px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    table-layout:fixed;
+}
+    
+    .user-table th,
+    .user-table td {
+        padding: 10px 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .user-table th {
+        background-color: #e1e9ff;
+        color: #333;
+    }
+
+    .user-table tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .user-table .delete-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+        .user-table .delete-button:hover {
+            background-color: #c0392b;
+        }

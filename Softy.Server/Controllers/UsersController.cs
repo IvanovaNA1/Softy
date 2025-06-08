@@ -100,25 +100,25 @@ namespace Softy.Server.Controllers
             }
         }
 
-        [HttpGet("masters")]
-        [Authorize(Roles = "master")]
-        public async Task<IActionResult> GetMasters()
+        
+        [HttpGet("all-users")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetAllUsers()
         {
-            var masters = await _context.Users
-                .Where(u => u.RoleId == 1)
+            var users = await _context.Users
                 .Select(u => new {
                     u.Id,
                     u.Name,
                     u.Surname,
-                    u.Phone
+                    u.Phone,
+                    u.RoleId
                 })
                 .ToListAsync();
 
-            return Ok(masters);
+            return Ok(users);
         }
-
         [HttpPost("add-user")]
-        [Authorize(Roles = "master")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AddUser([FromBody] RegisterModel model)
         {
             if (!ModelState.IsValid)
@@ -142,6 +142,21 @@ namespace Softy.Server.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Пользователь успешно добавлен" });
+        }
+        [HttpDelete("delete-user/{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound(new { message = "Пользователь не найден." });
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Пользователь успешно удалён." });
         }
     }
 }

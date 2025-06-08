@@ -3,8 +3,7 @@ import '../assets/styles/Footer.css';
 
 const Footer = () => {
     return (
-        <footer>
-            <div className="footer-container">
+        <footer className="footer-container">
                 <div className="footer-logo">
                     <h2>SFT</h2>
                 </div>
@@ -16,7 +15,7 @@ const Footer = () => {
                         <li><a href="https://telegram.com" target="_blank" rel="noopener noreferrer">Telegram</a></li>
                     </ul>
                 </div>
-            </div>
+            
             
         </footer>
     );

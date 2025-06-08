@@ -34,10 +34,14 @@ const Header = () => {
                         )}
                     </li>
                     <li><Link to="/profile">Профиль</Link></li>
-                    <li><Link to="/tattoo-viewer">Татуировки</Link></li>
-                    {userRole === 1 && (
-                        <li><Link to="/users">Мастера</Link></li>
+                    {userRole != 3 &&(
+                        <li><Link to="/tattoo-viewer">Татуировки</Link></li>
+                    )}                
+                    {userRole === 3 && (
+                        <li><Link to="/users">Мастера и Клиенты</Link></li>
                     )}
+                    {userRole === 3 && (
+                        <li><Link to="/orders">Записи</Link></li>)}
                 </ul>
             </nav>
         </header>

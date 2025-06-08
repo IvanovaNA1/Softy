@@ -11,11 +11,14 @@
 }
 
 .sidebar {
-    width: 250px;
+    width: 300px;
     background: #fafafa;
     display: flex;
     flex-direction: column;
+    padding:10px;
     gap: 10px;
+    border: solid 1px #eaeaea;
+    border-radius: 10px;
 }
 
 .main-content {

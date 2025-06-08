@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import AddUser from './pages/AddUser';
 import TattooViewer from './pages/TattooViewer';
+import Orders from './pages/Orders';
 
 const App = () => {
     
@@ -24,6 +25,7 @@ const App = () => {
                 <Route path="/tattoo-viewer" element={<TattooViewer />} />
                 <Route path="/service" element={<Services />} />
                 <Route path="/users" element={<AddUser />} />
+                <Route path="/orders" element={<Orders />} />
             </Routes>
             <Footer /> 
         </Router>

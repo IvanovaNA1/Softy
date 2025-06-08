@@ -167,7 +167,7 @@ const Services = () => {
         <div className="home-container">
             <section className="services-section">
                 <h2>Наши услуги</h2>
-                {userRole === 1 && (
+                {userRole === 3 && (
                     <button onClick={handleAddService} className="add-service-button">
                         Добавить услугу
                     </button>)}
@@ -184,19 +184,19 @@ const Services = () => {
                                     <span className="service-duration">{service.duration}</span>
                                     <span className="service-price">от {service.price}₽</span>
                                 </div>
-                                {userRole != 1 && (
+                                {userRole == 2 && (
                                     <button onClick={() => handleBookClick(service.id)} className="book-button">
                                         Записаться
                                     </button>)}
-                                {userRole === 1 && (
-                                    <>
+                                {userRole === 3 && (
+                                    <div className="button-group">
                                         <button onClick={() => handleEditService(service)} className="edit-button">
                                             ✎
                                         </button>
                                         <button onClick={() => handleDeleteService(service.id)} className="delete-button">
-                                            ✖ 
+                                            ✖
                                         </button>
-                                    </>
+                                    </div>
                                 )}
 
                             </div>

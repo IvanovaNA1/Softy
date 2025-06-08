@@ -19,6 +19,9 @@ namespace Softy.Server.Controllers
             _context = context;
         }
 
+        
+        
+
         [HttpGet("available-times")]
         public async Task<IActionResult> GetAvailableTimes([FromQuery] int serviceId)
         {
@@ -159,6 +162,32 @@ namespace Softy.Server.Controllers
                 .ToListAsync();
             
             return Ok(bookings);
+        }
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            var orders = await _context.Orders
+                .Include(o => o.User) // Клиент
+                .Include(o => o.AvailableTime)
+                    .ThenInclude(a => a.Service) // Услуга
+                .Include(o => o.AvailableTime)
+                    .ThenInclude(a => a.User) // Мастер (User)
+                .Include(o => o.Status) // Статус
+                .Select(o => new
+                {
+                    o.Id,
+                    ClientName = o.User.Name + " " + o.User.Surname,
+                    ClientPhone = o.User.Phone,
+                    MasterName = o.AvailableTime.User.Name + " " + o.AvailableTime.User.Surname,
+                    ServiceName = o.AvailableTime.Service.Name,
+                    o.AvailableTime.AvailableDate,
+                    StatusId = o.StatusId,
+                    StatusName = o.Status.Status,
+                    o.CreatedAt
+                })
+                .ToListAsync();
+
+            return Ok(orders);
         }
 
         public class StatusUpdateDto

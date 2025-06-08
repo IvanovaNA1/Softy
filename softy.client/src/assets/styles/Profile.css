@@ -8,6 +8,7 @@
     margin: 20px auto;
     margin-top: 5%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3%;
 }
 
     .profile-container h2 {
@@ -77,7 +78,7 @@
     border-left: 3px solid #cbd7fe;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     height: auto;
-    
+    margin-left:50px;
 }
     .master-calendar-section h3,
     .master-calendar-section h4 {
@@ -195,25 +196,32 @@
     display: flex;
     padding: 20px;
     margin-top:5%;
+    margin-bottom:10%;
 }
 
-.sidebar {
-    font-family:'Roboro', sans-serif;
+.sidebars {
+    font-family: 'Roboro', sans-serif;
     font-size: 18px;
-    width: 16%;
-    padding:25px;
+    padding: 25px;
     border-right: 3px solid #cbd7fe;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    height:auto;
+    height: 500px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left:2%;
 }
-    .sidebar h3 {
+
+    .sidebars.form-group {
         padding:0px 0px 20px;
         font-size:24px;
         color:#afb9d8;
         text-align:center;
     }
-    .sidebar p {
-        padding-top: 10px;
+    .sidebars p {
+        padding-top: 1px;
+        margin-top:1px;
         
     }
 .main-content {
@@ -223,13 +231,15 @@
 }
 
 .logout-button {
-    background: #b293ff;
+    background: #bda2ffeb;
     color: white;
     padding: 8px 12px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    width:30%;
+    width:60%;
+    font-weight:700;
+    margin: 0px auto;
 }
 
 .order-table {
@@ -243,10 +253,18 @@
         padding: 8px;
         text-align: left;
     }
-
-.row-pending {
-    background-color: #fffbe6;
+.order-table button{
+    font-size:15px;
+    background-color:transparent;
+    border:none;
+    margin: 0% 5% 0% 15%;
 }
+    .order-table button:hover {
+        transform: scale(1.50);
+    }
+    .row-pending {
+        background-color: #fffbe6;
+    }
 
 .row-confirmed {
     background-color: #e6ffed;
@@ -277,10 +295,10 @@
 }
 
 .booking-item {
-    border: 1px solid #ddd;
+    border: 1px solid #6c91ff;
     padding: 10px;
     margin: 20px 0;
-    background-color: #f9f9f9;
+    background-color: #f6f3ffe8;
     border-radius: 10px;
     font-size: 17px;
     display: flex;
@@ -292,19 +310,19 @@
         color:#2f2e2e;
     }
 
-    .booking-item .cancel-button {
+    .booking-item .canceled-button {
         padding: 5px 10px;
         background-color: #ff7f7f;
         color: white;
         border: none;
         border-radius: 10px;
         cursor: pointer;
-        margin-top: 10px;
+        font-weight:600;
         font-size:15px;
         width:10%;
     }
 
-        .booking-item .cancel-button:hover {
+        .booking-item .canceled-button:hover {
             background-color: #c85252;
         }
 
@@ -318,35 +336,36 @@
             cursor: not-allowed;
         }
 
-.form-group {
-    margin-bottom: 1rem;
-}
+
 
     .form-group label {
         display: block;
         font-weight: bold;
-        margin-bottom: 5px;
+        margin-bottom: 1px;
     }
 
     .form-group input {
-        width: 100%;
+        width: 90%;
         padding: 8px;
         border-radius: 4px;
         border: 1px solid #ccc;
     }
 
-.edit-button {
-    background-color: #599aea;
-    color: white;
-    border: none;
+.edited-button {
+    background-color: transparent;
+    color: #7195ff;
+    border: solid 2px ;
     padding: 8px 16px;
-    margin-top: 10px;
-    border-radius: 4px;
+    margin: 10px auto;
+    border-radius: 10px;
     cursor: pointer;
+    font-size:15px;
+    font-weight:600;
+    width:70%;
 }
 
-    .edit-button:hover {
-        background-color: #3a7bd5;
+    .edited-button:hover {
+        background-color: #dbe4ff;
     }
 .error-message {
     color: red;
@@ -355,28 +374,32 @@
     display: block;
 }
 .save-button {
-    background-color: #4caf50;
-    color: white;
+    background-color: #9fe4a2;
+    color: #018707;
     border: none;
-    padding: 8px 16px;
     margin-right: 10px;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: 600;
+    width: 50%;
+    margin: 1px auto;
 }
 
     .save-button:hover {
-        background-color: #45a049;
+        background-color: #9ed8a0;
     }
 
 .cancel-button {
-    background-color: #f44336;
-    color: white;
+    background-color: #f18e87;
+    color: #9c433d;
     border: none;
-    padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: 600;
+    width: 50%;
+    margin: 1px auto;
 }
 
     .cancel-button:hover {
-        background-color: #d32f2f;
+        background-color: #f2766d;
     }

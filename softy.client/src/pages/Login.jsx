@@ -84,7 +84,7 @@ const Login = () => {
                         className="input-field"
                     />
                 </div>
-                <div className="form-group checkbox-group">
+                <div className="checkbox-group">
                     <label>
                         <input
                             type="checkbox"

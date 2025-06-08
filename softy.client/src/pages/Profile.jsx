@@ -260,7 +260,7 @@ const Profile = () => {
     ).map(dateStr => new Date(dateStr));
 
     const handleCancelOrder = (orderId) => {
-        updateStatus(orderId, 3); // Отменить заказ (3 - статус "Отменено")
+        updateStatus(orderId, 3); 
     };
 
     return (
@@ -272,7 +272,7 @@ const Profile = () => {
                 </div>
             ) : user ? (
                 <>
-                        <div className="sidebar">
+                        <div className="sidebars">
                             {isEditing ? (
                                 <>
                                     <div className="form-group">
@@ -307,10 +307,10 @@ const Profile = () => {
                                 </>
                             ) : (
                                     <>
-                                    <button onClick={() => setIsEditing(true)} className="edit-button">Редактировать профиль</button>
-                                    <p><strong>Имя:</strong> {user.name}</p>
-                                    <p><strong>Фамилия:</strong> {user.surname}</p>
-                                    <p><strong>Телефон:</strong> {user.phone}</p>
+                                    <button onClick={() => setIsEditing(true)} className="edited-button">Редактировать профиль</button>
+                                        <p>Имя: <strong>{user.name}</strong></p>
+                                        <p>Фамилия:<strong> {user.surname}</strong></p>
+                                        <p>Телефон:<strong>{user.phone}</strong> </p>
                                     
                                     <button onClick={handleLogout} className="logout-button">Выйти</button>
                                 </>
@@ -321,7 +321,7 @@ const Profile = () => {
                         {user.roleId === 1 ? (
                             <>
                                 <h2>Записи на услуги</h2>
-                                <div className="filters">
+                                <div className="filter">
                                     <label>Фильтр по статусу:</label>
                                     <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
                                         <option value="">Все</option>
@@ -356,8 +356,8 @@ const Profile = () => {
                                                 <td>
                                                     {order.statusId === 1 && (
                                                         <>
-                                                            <button onClick={() => updateStatus(order.id, 2)}>Подтвердить</button>
-                                                            <button onClick={() => updateStatus(order.id, 3)}>Отменить</button>
+                                                            <button onClick={() => updateStatus(order.id, 2)}>✅</button>
+                                                            <button onClick={() => updateStatus(order.id, 3)}>❌</button>
                                                         </>
                                                     )}
                                                     {order.statusId === 2 && (
@@ -386,7 +386,7 @@ const Profile = () => {
 
                                                             {/* Кнопка для отмены записи */}
                                                             {o.statusId !== 3 && (  // если заказ не отменен
-                                                                <button className="cancel-button" onClick={() => handleCancelOrder(o.id)}>Отменить</button>
+                                                                <button className="canceled-button" onClick={() => handleCancelOrder(o.id)}>Отменить</button>
                                                             )}
                                                         </>
                                                     ) : (
