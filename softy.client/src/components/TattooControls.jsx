@@ -1,14 +1,42 @@
-﻿import React, { useRef, useEffect } from 'react';
+﻿import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import '../assets/styles/Tattoo.css';
 
-const TattooControls = ({ previewUrl, setTattooTexture, setPreviewUrl, activeDecal, activeDecalData, updateDecal, clearDecal, saveScreenshot, setActiveDecalData }) => {
+const TattooControls = ({
+    previewUrl,
+    setTattooTexture,
+    setPreviewUrl,
+    activeDecal,
+    activeDecalData,
+    updateDecal,
+    clearDecal,
+    saveScreenshot,
+    tattooTexture,
+    currentModel // Добавим пропс с идентификатором выбранной 3D модели (название, id или что угодно)
+}) => {
     const tattooInputRef = useRef(null);
-    const moveXRef = useRef(null);
-    const moveYRef = useRef(null);
-    const rotateRef = useRef(null);
-    const scaleRef = useRef(null);
 
+    // Добавим состояния для контролов
+    const [moveX, setMoveX] = useState(0);
+    const [moveY, setMoveY] = useState(0);
+    const [rotate, setRotate] = useState(0);
+    const [scale, setScale] = useState(0.5);
+
+    const [lastX, setLastX] = useState(0);
+    const [lastY, setLastY] = useState(0);
+
+    // Когда меняется текущая модель, сбрасываем значения ползунков
+    useEffect(() => {
+        setMoveX(0);
+        setMoveY(0);
+        setRotate(0);
+        setScale(0.5);
+
+        setLastX(0);
+        setLastY(0);
+    }, [currentModel]);
+
+    // Загрузка изображения с удалением фона (оставим как есть)
     const loadImageAndRemoveBackground = (file) => {
         return new Promise((resolve) => {
             const img = new Image();
@@ -22,7 +50,6 @@ const TattooControls = ({ previewUrl, setTattooTexture, setPreviewUrl, activeDec
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const data = imageData.data;
 
-                // 1. Найти самый светлый цвет (фон)
                 let maxR = 0, maxG = 0, maxB = 0;
                 for (let i = 0; i < data.length; i += 4) {
                     const r = data[i];
@@ -35,8 +62,7 @@ const TattooControls = ({ previewUrl, setTattooTexture, setPreviewUrl, activeDec
                     }
                 }
 
-                // 2. Удалить всё, что близко к этому цвету (фон)
-                const tolerance = 30; // Чем больше — тем шире допуск, обычно 20-40
+                const tolerance = 30;
                 for (let i = 0; i < data.length; i += 4) {
                     const r = data[i];
                     const g = data[i + 1];
@@ -45,7 +71,7 @@ const TattooControls = ({ previewUrl, setTattooTexture, setPreviewUrl, activeDec
                     if (Math.abs(r - maxR) < tolerance &&
                         Math.abs(g - maxG) < tolerance &&
                         Math.abs(b - maxB) < tolerance) {
-                        data[i + 3] = 0; // Сделать пиксель прозрачным
+                        data[i + 3] = 0;
                     }
                 }
 
@@ -60,33 +86,49 @@ const TattooControls = ({ previewUrl, setTattooTexture, setPreviewUrl, activeDec
         });
     };
 
-
     const handleTattooInputChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
             const texture = await loadImageAndRemoveBackground(file);
             setTattooTexture(texture);
-            const url = URL.createObjectURL(file);
-            setPreviewUrl(url);
+            setPreviewUrl(URL.createObjectURL(file));
+            setLastX(0);
+            setLastY(0);
         }
     };
 
-    const modifyDecalPosition = (dx, dy) => {
-        if (activeDecal && activeDecalData) {
-            const { mesh, position } = activeDecalData;
+    const modifyDecalPosition = (newX, newY) => {
+        if (!activeDecalData || !tattooTexture) return;
 
-            const localPosition = mesh.worldToLocal(position.clone());
+        const { position, normal } = activeDecalData;
 
-            if (dx !== null) localPosition.x += dx;
-            if (dy !== null) localPosition.y += dy;
+        const tangent = new THREE.Vector3();
+        const bitangent = new THREE.Vector3();
 
-            localPosition.x = Math.max(-1, Math.min(1, localPosition.x));  // Ограничиваем по X
-            localPosition.y = Math.max(-1, Math.min(1, localPosition.y));  // Ограничиваем по Y
-            activeDecal.position.set(localPosition.x, localPosition.y, localPosition.z);
-            setActiveDecalData({ ...activeDecalData, position: localPosition });
+        if (Math.abs(normal.y) < 0.99) {
+            tangent.crossVectors(normal, new THREE.Vector3(0, 1, 0)).normalize();
+        } else {
+            tangent.crossVectors(normal, new THREE.Vector3(1, 0, 0)).normalize();
         }
-    };
+        bitangent.crossVectors(normal, tangent).normalize();
 
+        const offset = new THREE.Vector3();
+
+        if (newX !== null) {
+            const deltaX = newX - lastX;
+            setLastX(newX);
+            offset.addScaledVector(tangent, deltaX);
+        }
+
+        if (newY !== null) {
+            const deltaY = newY - lastY;
+            setLastY(newY);
+            offset.addScaledVector(bitangent, deltaY);
+        }
+
+        const newPosition = position.clone().add(offset);
+        updateDecal(activeDecalData.rotation, activeDecalData.scale, newPosition);
+    };
 
     const modifyDecalRotation = (angleDeg) => {
         if (activeDecalData) updateDecal(angleDeg * (Math.PI / 180), activeDecalData.scale);
@@ -97,34 +139,28 @@ const TattooControls = ({ previewUrl, setTattooTexture, setPreviewUrl, activeDec
     };
 
     useEffect(() => {
-        const moveX = moveXRef.current;
-        const moveY = moveYRef.current;
-        const rotate = rotateRef.current;
-        const scale = scaleRef.current;
+        modifyDecalPosition(moveX, moveY);
+    }, [moveX, moveY]);
 
-        const onMoveX = (e) => modifyDecalPosition(parseFloat(e.target.value), null);
-        const onMoveY = (e) => modifyDecalPosition(null, parseFloat(e.target.value));
-        const onRotate = (e) => modifyDecalRotation(parseFloat(e.target.value));
-        const onScale = (e) => modifyDecalScale(parseFloat(e.target.value));
+    useEffect(() => {
+        modifyDecalRotation(rotate);
+    }, [rotate]);
 
-        moveX.addEventListener('input', onMoveX);
-        moveY.addEventListener('input', onMoveY);
-        rotate.addEventListener('input', onRotate);
-        scale.addEventListener('input', onScale);
-
-        return () => {
-            moveX.removeEventListener('input', onMoveX);
-            moveY.removeEventListener('input', onMoveY);
-            rotate.removeEventListener('input', onRotate);
-            scale.removeEventListener('input', onScale);
-        };
-    }, [activeDecal, activeDecalData]);
+    useEffect(() => {
+        modifyDecalScale(scale);
+    }, [scale]);
 
     return (
         <div className="sidebar">
             <h2>Управление</h2>
             <div className="image-preview">
-                <input type="file" accept="image/*" hidden ref={tattooInputRef} onChange={handleTattooInputChange} />
+                <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    ref={tattooInputRef}
+                    onChange={handleTattooInputChange}
+                />
                 <div onClick={() => tattooInputRef.current.click()} style={{ cursor: 'pointer' }}>
                     {previewUrl ? <img src={previewUrl} alt="Татуировка" /> : <span>Выбрать изображение</span>}
                 </div>
@@ -132,30 +168,44 @@ const TattooControls = ({ previewUrl, setTattooTexture, setPreviewUrl, activeDec
             <label>Перемещение по X:</label>
             <input
                 type="range"
-                min="-1"
-                max="1"
-                step="0.01"
-                ref={moveXRef}
-                onChange={(e) => modifyDecalPosition(parseFloat(e.target.value), null)}
+                min="-0.2"
+                max="0.2"
+                step="0.005"
+                value={moveX}
+                onChange={e => setMoveX(parseFloat(e.target.value))}
             />
             <label>Перемещение по Y:</label>
             <input
                 type="range"
-                min="-1"
-                max="1"
-                step="0.01"
-                ref={moveYRef}
-                onChange={(e) => modifyDecalPosition(null, parseFloat(e.target.value))}
+                min="-0.2"
+                max="0.2"
+                step="0.005"
+                value={moveY}
+                onChange={e => setMoveY(parseFloat(e.target.value))}
             />
             <label>Поворот:</label>
-            <input type="range" min="-180" max="180" step="1" ref={rotateRef} />
+            <input
+                type="range"
+                min="-180"
+                max="180"
+                step="1"
+                value={rotate}
+                onChange={e => setRotate(parseFloat(e.target.value))}
+            />
             <label>Масштаб:</label>
-            <input type="range" min="0.5" max="2" step="0.01" defaultValue="1" ref={scaleRef} />
-            <button class = "book-button" onClick={clearDecal}>Удалить</button>
-            <button class="book-button" onClick={saveScreenshot}>Сохранить</button>
+            <input
+                type="range"
+                min="0.2"
+                max="1.2"
+                step="0.01"
+                value={scale}
+                onChange={e => setScale(parseFloat(e.target.value))}
+            />
+            <button className="book-button" onClick={clearDecal}>Удалить</button>
+            <button className="book-button" onClick={saveScreenshot}>Сохранить</button>
         </div>
-
     );
 };
 
 export default TattooControls;
+

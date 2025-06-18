@@ -89,7 +89,7 @@ const TattooViewer = () => {
         orientation.setFromVector3(normal.clone().normalize());
         orientation.z = rotation;
 
-        const decalGeometry = new DecalGeometry(mesh, position, orientation, size.clone().multiplyScalar(scale));
+        const decalGeometry = new DecalGeometry(mesh, position, orientation, size);
         const decal = new THREE.Mesh(decalGeometry, decalMaterial);
 
         scene.current.add(decal);
@@ -100,39 +100,46 @@ const TattooViewer = () => {
     };
 
 
-    const updateDecal = (newRotation, newScale) => {
+    const updateDecal = (newRotation, newScale, newPosition = null) => {
         if (!activeDecalData) return;
         const { mesh, position, normal, material } = activeDecalData;
+        const targetPosition = newPosition || position;
 
-        // Обновляем ориентацию с учётом нормали
         const orientation = new THREE.Euler();
         orientation.setFromVector3(normal.clone().normalize());
         orientation.z = newRotation;
 
-        // Размеры татуировки с учётом масштаба
-        const size = new THREE.Vector3(1, 1, 1).multiplyScalar(newScale);
-        const newGeometry = new DecalGeometry(mesh, position, orientation, size);
+        const aspectRatio = tattooTexture.image.width / tattooTexture.image.height;
+        const baseSize = 0.5;
+        let size = new THREE.Vector3(baseSize, baseSize, baseSize).multiplyScalar(newScale);
+        if (aspectRatio > 1) size.x = size.y * aspectRatio;
+        else size.y = size.x / aspectRatio;
+
+        const newGeometry = new DecalGeometry(mesh, targetPosition, orientation, size);
         const newDecal = new THREE.Mesh(newGeometry, material);
 
-        // Удаляем старую татуировку и добавляем новую
         if (activeDecal) scene.current.remove(activeDecal);
+        scene.current.add(newDecal);
+
+        setDecals((prevDecals) => {
+            const filtered = prevDecals.filter(({ decal }) => decal !== activeDecal);
+            return [...filtered, { mesh, decal: newDecal }];
+        });
 
         setActiveDecal(newDecal);
-        setActiveDecalData({ ...activeDecalData, rotation: newRotation, scale: newScale });
-        scene.current.add(newDecal);
-        console.log('Текущее положение татуировки:', activeDecal.position);
-        if (activeDecal.position.x > 1000 || activeDecal.position.y > 1000) {
-            console.warn("Татуировка вышла за пределы сцены!");
-        }
+        setActiveDecalData({
+            ...activeDecalData,
+            position: targetPosition.clone(),
+            rotation: newRotation,
+            scale: newScale
+        });
     };
 
-
     const clearDecal = () => {
-        if (activeDecal) scene.current.remove(activeDecal);
         decals.forEach(({ decal }) => scene.current.remove(decal));
+        setDecals([]);
         setActiveDecal(null);
         setActiveDecalData(null);
-        setDecals([]);
     };
 
     const onModelClick = (event) => {
@@ -212,7 +219,7 @@ const TattooViewer = () => {
                 updateDecal={updateDecal}
                 clearDecal={clearDecal}
                 saveScreenshot={saveScreenshot}
-                setActiveDecalData={setActiveDecalData} 
+                tattooTexture={tattooTexture}
             />
             <div className="main-content">
                 <h1>Виртуальная примерка</h1>
@@ -220,9 +227,10 @@ const TattooViewer = () => {
                     <label htmlFor="bodyPartSelect">Выберите часть тела:</label>
                     <select id="bodyPartSelect" value={modelPart} onChange={(e) => setModelPart(e.target.value)}>
                         <option value="head3">Голова</option>
-                        <option value="l-leg">Левая нога</option>
-                        <option value="r-leg">Правая нога</option>
-                        <option value="model">Модель</option>
+                        <option value="torso">Торс</option>
+                        <option value="foot">Нога</option>
+                        <option value="hand">Рука</option>
+                        <option value="body">Тело</option>
                     </select>
                     <label htmlFor="genderSelect">Пол:</label>
                     <select id="genderSelect" value={gender} onChange={(e) => setGender(e.target.value)}>
